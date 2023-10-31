@@ -15,21 +15,39 @@ const formatTime = (timeInSecs) => {
 
 function Timer() {
   const [count, setCount] = useState(0);
+  const [running, setRunning] = useState(false);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCount((precount) => precount + 1);
-    }, 1000);
+    let intervalId;
+
+    if (running) {
+      intervalId = setInterval(() => {
+        setCount((precount) => precount + 1);
+      }, 1000);
+    }
 
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [running]);
+  const handleStart = () => {
+    setRunning(true);
+  };
 
+  const handleStop = () => {
+    setRunning(false);
+  };
+
+  const handleReset = () => {
+    setCount(0);
+    setRunning(false);
+  };
   return (
     <div>
-      {/* <p>Timer : {count} count</p> */}
       <h6>{formatTime(count)} </h6>
+      <button onClick={handleStart}>Start</button>
+      <button onClick={handleStop}>Stop</button>
+      <button onClick={handleReset}>Reset</button>
     </div>
   );
 }
@@ -40,10 +58,11 @@ function App() {
   return (
     <div>
       <h1>Timer App</h1>
-      
+
       <button onClick={() => setShowTimer(!showTimer)}>
         {showTimer ? "Hide Timer" : "Show Timer"}
       </button>
+
       {showTimer && <Timer />}
     </div>
   );

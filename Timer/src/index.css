@@ -20,9 +20,10 @@ button{
   padding: 8px;
   font-size: 18px;
   cursor: pointer;
-  background-color: aqua;
+  background-color: rgb(156, 235, 235);
   color: black;
   border: none;
+  margin: 7px;
 
 }
 button:hover{
